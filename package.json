@@ -1,0 +1,30 @@
+{
+  "name": "ts-require",
+  "version": "1.0.0",
+  "description": "a way to load ts module in js file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoushaotian/ts-require.git"
+  },
+  "keywords": [
+    "ts"
+  ],
+  "author": "zhoushaotian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhoushaotian/ts-require/issues"
+  },
+  "homepage": "https://github.com/zhoushaotian/ts-require#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "typescript": "^3.4.3"
+  }
+}
