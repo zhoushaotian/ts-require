@@ -1,0 +1,51 @@
+{
+  "name": "ts-require",
+  "version": "1.0.0",
+  "description": "a way to load ts module in js file",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:cover",
+    "test:unit": "mocha ./test/index.test.js --timeout 5000 --require intelli-espower-loader",
+    "test:cover": "nyc npm run test:unit --include-pid"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoushaotian/ts-require.git"
+  },
+  "keywords": [
+    "ts"
+  ],
+  "nyc": {
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "tmp/*.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "text-summary",
+      "lcov"
+    ]
+  },
+  "author": "zhoushaotian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhoushaotian/ts-require/issues"
+  },
+  "homepage": "https://github.com/zhoushaotian/ts-require#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^6.1.2",
+    "nyc": "^13.3.0",
+    "power-assert": "^1.6.1"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "typescript": "^3.4.3"
+  }
+}
