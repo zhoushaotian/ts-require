@@ -2,7 +2,7 @@
 const tsRequire = require('../index');
 const assert = require('assert');
 const path = require('path');
-const fs = require('fs-extra')
+const fs = require('fs-extra');
 
 describe('test require', () => {
     it('require a ts file without del', () => {
