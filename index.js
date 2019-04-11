@@ -30,6 +30,7 @@ module.exports = function(module, opt = {}) {
                 resolve(content);
             });
         }catch(e) {
+        /* istanbul ignore next */
             return reject(e);
         }
     });
