@@ -3,6 +3,5 @@ node_js:
      - 8.10.0
 install:
     - npm install
-    - sudo chmod -R a+rwx folder/files
 test:
     - npm run test
