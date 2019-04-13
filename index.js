@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const childProess = require('child_process');
+const deasync = require('deasync');
 
 const tsc = path.join(path.dirname(require.resolve('typescript')), './tsc.js');
 const tool = require('./utils/tool');
@@ -14,24 +15,29 @@ const defaultOptions = {
     lib: 'es2015'
 };
 
-module.exports = function(module, opt = {}) {
+function asyncRequire(module, opt, cb) {
+    try{
+        const modulePath = require.resolve(module);
+        const child = childProess.fork(tsc, [modulePath].concat(tool.convertOpt(opt)));
+        child.on('close', () => {
+            const content = require(path.join(opt.tmpDir, path.basename(modulePath, '.ts') + '.js'));
+            if(opt.delTemp) {
+                fs.removeSync(opt.tmpDir);
+            }
+            cb(null, content);
+        });
+    }catch(e) {
+    /* istanbul ignore next */
+        cb(e);
+    }
+}
+
+module.exports = function(opt = {}) {
     opt = Object.assign({}, defaultOptions, opt);
-    const modulePath = require.resolve(module);
-    return new Promise((resolve, reject) => {
-        try{
-            const child = childProess.fork(tsc, [modulePath].concat(tool.convertOpt(opt)));
-            child.on('close', () => {
-                const content = require(path.join(opt.tmpDir, path.basename(modulePath, '.ts') + '.js'));
-                if(opt.delTemp) {
-                    fs.removeSync(opt.tmpDir);
-                }
-                resolve(content);
-            });
-        }catch(e) {
-        /* istanbul ignore next */
-            return reject(e);
-        }
+    return deasync(function(module) {
+        const args = Array.prototype.slice.call(arguments);
+        const cb = args[args.length - 1];
+        asyncRequire(module, opt, cb);
     });
-    
 };
 

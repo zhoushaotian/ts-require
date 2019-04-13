@@ -12,22 +12,20 @@ export function say() {
 ```
 in our js file we can require use resolve path
 ```js
-const tsRequire = require('ts-require');
+const tsRequire = require('ts-require')();
 
 // this will generate tmp dir in your project
-tsRequire(path.resolve(__dirname, './demo.ts'))
-    .then((data) => {
-        // then we can use this module
-        demo.say();
-        demo.word // hello world
-    });
+cosnt data = tsRequire(path.resolve(__dirname, './demo.ts'))
+// then we can use this module
+data.say();
+data.word;// hello world
+
 // if you want to del it you can pass delTmp true to it
-tsRequire(path.resolve(__dirname, './demo.ts'), {
+const tsRequireWithDel = require('ts-require')({
     delTemp: true
 })
-    .then((data) => {
-        // then we can use this module
-        demo.say();
-        demo.word // hello world
-    });
+cosnt data = tsRequire(path.resolve(__dirname, './demo.ts'))
+// then we can use this module
+data.say();
+data.word;// hello world
 ```
