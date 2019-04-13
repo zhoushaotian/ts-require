@@ -7,5 +7,7 @@ exports.convertOpt = function (opts) {
         opts.module,
         '--outDir',
         opts.tmpDir,
+        '--lib',
+        opts.lib
     ];
 };

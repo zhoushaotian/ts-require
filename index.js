@@ -7,13 +7,11 @@ const tool = require('./utils/tool');
 const fs = require('fs-extra');
 
 const defaultOptions = {
-    nodeLib: false,
     target: 'es5',
     module: 'commonjs',
-    emitOnError: false,
-    exitOnError: true,
     tmpDir: path.join(process.cwd(), 'tmp'),
-    delTemp: false
+    delTemp: false,
+    lib: 'es2015'
 };
 
 module.exports = function(module, opt = {}) {
