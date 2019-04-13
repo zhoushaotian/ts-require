@@ -19,7 +19,7 @@ function asyncRequire(module, opt, cb) {
     try{
         const modulePath = require.resolve(module);
         const child = childProess.fork(tsc, [modulePath].concat(tool.convertOpt(opt)));
-        child.on('close', () => {
+        child.on('exit', () => {
             const content = require(path.join(opt.tmpDir, path.basename(modulePath, '.ts') + '.js'));
             if(opt.delTemp) {
                 fs.removeSync(opt.tmpDir);
