@@ -15,12 +15,12 @@ const defaultOptions = {
     lib: 'es2015'
 };
 
-function asyncRequire(module, opt, cb) {
+function asyncRequire(filePath, opt, cb) {
     try{
-        const modulePath = require.resolve(module);
-        const child = childProess.fork(tsc, [modulePath].concat(tool.convertOpt(opt)));
+        const child = childProess.fork(tsc, [filePath].concat(tool.convertOpt(opt)));
         child.on('exit', () => {
-            const content = require(path.join(opt.tmpDir, path.basename(modulePath, '.ts') + '.js'));
+            delete require.cache[path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js')];
+            const content = require(path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js'));
             if(opt.delTemp) {
                 fs.removeSync(opt.tmpDir);
             }
@@ -34,10 +34,10 @@ function asyncRequire(module, opt, cb) {
 
 module.exports = function(opt = {}) {
     opt = Object.assign({}, defaultOptions, opt);
-    return deasync(function(module) {
+    return deasync(function(filePath) {
         const args = Array.prototype.slice.call(arguments);
         const cb = args[args.length - 1];
-        asyncRequire(module, opt, cb);
+        asyncRequire(filePath, opt, cb);
     });
 };
 

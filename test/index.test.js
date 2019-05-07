@@ -14,6 +14,7 @@ describe('test require', () => {
         assert(fs.pathExistsSync(path.join(process.cwd(), 'tmp/')), 'if exist tmp dir');
         assert(fs.pathExistsSync(path.join(process.cwd(), './tmp/test.js')), 'if exit tmp test.js file');
     });
+    
     it('require a ts file with del', () => {
         const tsRequireDel = tsRequire({
             delTemp: true
