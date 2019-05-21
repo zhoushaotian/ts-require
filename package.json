@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:cover",
-    "test:unit": "mocha ./test/index.test.js --timeout 5000 --require intelli-espower-loader",
+    "test:unit": "mocha ./test/index.test.js --timeout 10000 --require intelli-espower-loader",
     "test:cover": "nyc npm run test:unit --include-pid"
   },
   "repository": {
