@@ -1,6 +1,6 @@
 {
   "name": "ts-require",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "a way to load ts module in js file",
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/zhoushaotian/ts-require#readme",
   "devDependencies": {
+    "@types/thrift": "^0.10.8",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "intelli-espower-loader": "^1.0.1",

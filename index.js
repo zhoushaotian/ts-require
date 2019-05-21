@@ -8,11 +8,10 @@ const tool = require('./utils/tool');
 const fs = require('fs-extra');
 
 const defaultOptions = {
-    target: 'es5',
+    target: 'es6',
     module: 'commonjs',
     tmpDir: path.join(process.cwd(), 'tmp'),
     delTemp: false,
-    lib: 'es2015'
 };
 
 function asyncRequire(filePath, opt, cb) {
