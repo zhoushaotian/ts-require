@@ -1,11 +1,13 @@
 'use strict';
 const path = require('path');
-const childProess = require('child_process');
+// const childProess = require('child_process');
 const deasync = require('deasync');
 
-const tsc = path.join(path.dirname(require.resolve('typescript')), './tsc.js');
-const tool = require('./utils/tool');
-const fs = require('fs-extra');
+// const tsc = path.join(path.dirname(require.resolve('typescript')), './tsc.js');
+// const tool = require('./utils/tool');
+// const fs = require('fs-extra');
+
+const exec = require('./utils/exec');
 
 const defaultOptions = {
     target: 'es6',
@@ -16,15 +18,20 @@ const defaultOptions = {
 
 function asyncRequire(filePath, opt, cb) {
     try{
-        const child = childProess.fork(tsc, [filePath].concat(tool.convertOpt(opt)));
-        child.on('exit', () => {
-            delete require.cache[path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js')];
-            const content = require(path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js'));
-            if(opt.delTemp) {
-                fs.removeSync(opt.tmpDir);
-            }
-            cb(null, content);
+        exec(opt.execType, filePath, opt).then((result) => {
+            cb(null, result);
+        }).catch((e) => {
+            cb(e);
         });
+        // const child = childProess.fork(tsc, [filePath].concat(tool.convertOpt(opt)));
+        // child.on('exit', () => {
+        //     delete require.cache[path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js')];
+        //     const content = require(path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js'));
+        //     if(opt.delTemp) {
+        //         fs.removeSync(opt.tmpDir);
+        //     }
+        //     cb(null, content);
+        // });
     }catch(e) {
     /* istanbul ignore next */
         cb(e);
