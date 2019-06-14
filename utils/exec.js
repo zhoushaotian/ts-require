@@ -4,6 +4,8 @@ const tool = require('./tool');
 const fs = require('fs-extra');
 const path = require('path');
 const tsc = path.join(path.dirname(require.resolve('typescript')), './tsc.js');
+const nodeEval = require('node-eval');
+const tsNode = require('ts-node');
 
 function handleRequire(filePath, opt) {
     delete require.cache[path.join(opt.tmpDir, path.basename(filePath, '.ts') + '.js')];
@@ -16,6 +18,18 @@ function handleRequire(filePath, opt) {
 
 module.exports = function (type, filePath, opt) {
     switch(type) {
+    case 'eval':
+        return new Promise((resolve, reject) => {
+            try {
+                const code = fs.readFileSync(filePath).toString();
+                const jsCode = tsNode.register({
+                    transpileOnly: true
+                }).compile(code, filePath, filePath);
+                resolve(nodeEval(jsCode, filePath));
+            }catch(e) {
+                reject(e);
+            }
+        });
     case 'exec':
         return new Promise((resolve, reject) => {
             cp.execFile('tsc', [filePath].concat(tool.convertOpt(opt)), (e) => {

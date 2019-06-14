@@ -36,4 +36,15 @@ describe('test require', () => {
         assert(!fs.pathExistsSync(path.join(process.cwd(), 'tmp/')), 'if exist tmp dir');
         assert(!fs.pathExistsSync(path.join(process.cwd(), './tmp/test.js')), 'if exit tmp test.js file');
     });
+    it('require a ts file with eval mode', () => {
+        const tsRequireDel = tsRequire({
+            delTemp: true,
+            execType: 'eval'
+        });
+        const data = tsRequireDel(path.resolve(__dirname, './ts/test.ts'));
+        assert(data.word === 'hello,world!');
+        assert(data.test() === 'hello,world!');
+        assert(!fs.pathExistsSync(path.join(process.cwd(), 'tmp/')), 'if exist tmp dir');
+        assert(!fs.pathExistsSync(path.join(process.cwd(), './tmp/test.js')), 'if exit tmp test.js file');
+    });
 });
