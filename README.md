@@ -29,3 +29,15 @@ cosnt data = tsRequire(path.resolve(__dirname, './demo.ts'))
 data.say();
 data.word;// hello world
 ```
+
+## options  
+  
+optionName|type|des|default  
+----|----|----|---- 
+target | string | 对应tsc的target选项(当execType为非eval才有效) | es6  
+module | string | 对应tsc的module选项(当execType为非eval才有效)  | commonjs  
+tmpDir | string | 临时文件夹目录地址(当execType为非eval才有效) | path.join(process.cwd(), 'tmp')  
+delTemp | boolean | 是否删除临时文件夹(当execType为非eval才有效) | false  
+execType | string | 编译模式(1.eval [ 速度最快 ] 2.exec 3.fork) | fork  
+project | string | tsconfig.json的地址(当execType为eval才有效) | 无  
+
