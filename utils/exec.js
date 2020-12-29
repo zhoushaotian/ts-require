@@ -23,8 +23,9 @@ module.exports = function (type, filePath, opt) {
             try {
                 const code = fs.readFileSync(filePath).toString();
                 const jsCode = tsNode.register({
-                    transpileOnly: true
-                }).compile(code, filePath, filePath);
+                    transpileOnly: true,
+                    project: opt.project
+                }).compile(code, filePath);
                 resolve(nodeEval(jsCode, filePath));
             }catch(e) {
                 reject(e);
